@@ -43,7 +43,7 @@ function App() {
         {
           users.map(user => {
             return (
-              <Grid.Col span={4}>
+              <Grid.Col span={3}>
                 <NewCard
                   data={user}
                   star={star}
