@@ -10,7 +10,7 @@ import { Website } from './UIcons/Website';
 
 const NewCard = props => {
 
-  
+  //extracting the props 
   const { id, name, username, email, phone, website , star} = props.data;
   const{ handleDelete, handleFollow } = props;
   

@@ -38,7 +38,7 @@ function App() {
 
   return (
     <>
-
+   {/** adding the cards in grid */}
       <Grid justify="flex-start" align="flex-start">
         {
           users.map(user => {
