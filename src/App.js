@@ -1,24 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import NewCard from './Componenet/NewCard'
+import { Grid } from '@mantine/core';
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [star, setStar] = useState(false);
+  
+
+  const handleDelete = (id) => {
+    const newUpdate = users.filter(update => update.id !== id);
+    setUsers(newUpdate);
+  }
+
+  const handleFollow = (id) => {
+    setUsers(users.map(user => user.id === id ? {...
+    user, star:!user.star} : user))
+    console.log(users);
+  }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios.get("https://jsonplaceholder.typicode.com/users")
+          .then((res) => setUsers(res.data));
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <Grid justify="flex-start" align="flex-start">
+        {
+          users.map(user => {
+            return (
+              <Grid.Col span={4}>
+                <NewCard
+                  data={user}
+                  star={star}
+                  handleDelete={handleDelete}
+                  handleFollow={handleFollow} />
+              </Grid.Col>
+            )
+          })
+        }
+      </Grid>
+
+
+
+
+    </>
   );
 }
 
